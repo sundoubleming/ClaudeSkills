@@ -4,13 +4,27 @@
 > **Task ID**: {task_id}
 > **Created**: {created_date}
 
-## 基本目标 (Task Objective)
+## 前置依赖 (Prerequisites)
 
-{task_objective}
+{prerequisites}
+
+## 技术目标 (Technical Objective)
+
+{technical_objective}
 
 ## 验收标准 (Acceptance Criteria)
 
-{acceptance_criteria}
+### 功能性 (Functional)
+
+{functional_criteria}
+
+### 性能 (Performance)
+
+{performance_criteria}
+
+### 异常场景 (Exception Handling)
+
+{exception_criteria}
 
 ## 执行步骤 (Implementation Steps)
 
