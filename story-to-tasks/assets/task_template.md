@@ -12,6 +12,12 @@
 
 {technical_objective}
 
+## 执行步骤 (Implementation Steps)
+
+{implementation_steps}
+
+{optional_sections}
+
 ## 验收标准 (Acceptance Criteria)
 
 ### 功能性 (Functional)
@@ -25,12 +31,6 @@
 ### 异常场景 (Exception Handling)
 
 {exception_criteria}
-
-## 执行步骤 (Implementation Steps)
-
-{implementation_steps}
-
-{optional_sections}
 
 ---
 

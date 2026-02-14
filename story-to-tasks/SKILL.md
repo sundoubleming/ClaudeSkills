@@ -11,11 +11,11 @@ This skill helps decompose story documents into individual, detailed task docume
 
 Each task document includes:
 - **前置依赖 (Prerequisites)**: Dependencies on other tasks
-- **技术目标 (Technical Objective)**: Clear technical implementation goals
-- **验收标准 (Acceptance Criteria)**: Categorized into functional, performance, and exception handling
+- **技术目标 (Technical Objective)**: Clear technical implementation goals, described as bullet points
 - **执行步骤 (Implementation Steps)**: Detailed implementation guide
 - **Task-specific sections**: Technology stack, data structures, pseudocode, flowcharts (based on task type)
 - **风险与缓解 (Risks & Mitigation)**: Potential risks and mitigation strategies (optional)
+- **验收标准 (Acceptance Criteria)**: Categorized into functional, performance, and exception handling
 - **参考文档 (References)**: Relevant documentation and resources (optional)
 
 **IMPORTANT**: All generated task documents MUST be in Markdown (.md) format.
@@ -51,10 +51,10 @@ Example story structure:
 For each task, determine its type and what sections are needed:
 
 **All tasks require:**
-- 技术目标 (Technical Objective) - Focus on technical implementation goals
+- 技术目标 (Technical Objective) - Focus on technical implementation goals, MUST use bullet points to describe each goal
 - 前置依赖 (Prerequisites) - If the task depends on other tasks
-- 验收标准 (Acceptance Criteria) - Categorized into functional, performance, and exception scenarios
 - 执行步骤 (Implementation Steps)
+- 验收标准 (Acceptance Criteria) - Categorized into functional, performance, and exception scenarios
 
 **Document output tasks additionally require:**
 - 文档格式 (Document Format): Specify the structure, sections, and format requirements
@@ -110,11 +110,24 @@ For each task, create a Markdown document using this structure:
 
 ## 技术目标 (Technical Objective)
 
-[Clear, concise statement of the technical implementation goals. Focus on what needs to be built/implemented from a technical perspective, such as:
-- Implementing specific database CRUD operations
-- Building a caching layer for a module
-- Creating API endpoints with specific functionality
-- Developing a data processing pipeline]
+[MUST use bullet points to describe each technical goal. Each bullet should be a clear, concise statement of one implementation goal.]
+
+- [Goal 1: e.g., Implement database CRUD operations for the User table with connection pooling]
+- [Goal 2: e.g., Build a caching layer with TTL support and cache invalidation]
+- [Goal 3: e.g., Create RESTful API endpoints for user management]
+- ...
+
+## 执行步骤 (Implementation Steps)
+
+[Detailed step-by-step instructions for implementing this task]
+
+1. Step 1
+2. Step 2
+3. ...
+
+[TASK-TYPE-SPECIFIC SECTIONS - see below]
+
+[OPTIONAL: 风险与缓解 (Risks & Mitigation)]
 
 ## 验收标准 (Acceptance Criteria)
 
@@ -136,15 +149,7 @@ For each task, create a Markdown document using this structure:
 - [ ] Exception scenario 2 (e.g., validates input and returns proper error)
 - [ ] ...
 
-## 执行步骤 (Implementation Steps)
-
-[Detailed step-by-step instructions for implementing this task]
-
-1. Step 1
-2. Step 2
-3. ...
-
-[OPTIONAL SECTIONS BASED ON TASK TYPE - see below]
+[OPTIONAL: 参考文档 (References)]
 
 ---
 
@@ -254,7 +259,7 @@ Refer to `references/flowchart_guide.md` for detailed guidance on creating effec
 
 #### Risks & Mitigation / Future Optimizations
 
-Add this section when there are known risks, technical challenges, or areas for future improvement:
+Add this section before "验收标准" when there are known risks, technical challenges, or areas for future improvement:
 
 ```markdown
 ## 风险与缓解 (Risks & Mitigation)
@@ -278,7 +283,7 @@ Add this section when there are known risks, technical challenges, or areas for 
 
 #### Reference Documentation
 
-Add this section when there are relevant external resources:
+Add this section after "验收标准" when there are relevant external resources:
 
 ```markdown
 ## 参考文档 (References)
@@ -314,10 +319,17 @@ Add this section when there are relevant external resources:
 
 ### Writing Clear Objectives
 
+Technical objectives MUST be written as bullet points. Each bullet should focus on one specific goal.
+
 Good technical objective:
+> - Implement database CRUD operations for the User table with connection pooling and transaction support
+> - Use prepared statements to prevent SQL injection
+> - Include methods for batch operations and pagination
+
+Poor objective (paragraph instead of bullet points):
 > "Implement database CRUD operations for the User table with connection pooling, transaction support, and prepared statements to prevent SQL injection. Include methods for batch operations and pagination."
 
-Poor objective:
+Poor objective (too vague):
 > "Make the database work with users"
 
 ### Defining Measurable Acceptance Criteria
@@ -440,33 +452,11 @@ Here's an example of a well-structured task document for a code implementation t
 
 ## 技术目标 (Technical Objective)
 
-Implement a concurrent packet capture system that can simultaneously capture packets from multiple network interfaces using goroutines. The system must aggregate all captured packets into a single PCAP file with proper synchronization, maintain per-interface statistics (packets, bytes, drops), and support graceful shutdown with context-based cancellation. The implementation should use Go's concurrency primitives (channels, sync.WaitGroup) and ensure thread-safe access to shared resources.
-
-## 验收标准 (Acceptance Criteria)
-
-### 功能性 (Functional)
-
-- [ ] Can capture packets on multiple interfaces simultaneously (tested with 3+ interfaces)
-- [ ] All interfaces' packets written to single PCAP file with correct format
-- [ ] Per-interface statistics accurately tracked (packets, bytes, drops)
-- [ ] Graceful shutdown on context cancellation or SIGINT/SIGTERM
-- [ ] Interface filtering works correctly (include/exclude patterns)
-- [ ] Unit test coverage > 80%
-
-### 性能 (Performance)
-
-- [ ] Can handle 10,000+ packets/second across all interfaces
-- [ ] Packet processing latency < 10ms per packet
-- [ ] Memory usage < 200MB for 1M packets
-- [ ] No packet drops under normal load (< 5000 pps per interface)
-
-### 异常场景 (Exception Handling)
-
-- [ ] Handles interface disconnection gracefully (logs error, continues with other interfaces)
-- [ ] Recovers from temporary write failures (retries with backoff)
-- [ ] Validates interface names and returns clear error for invalid interfaces
-- [ ] No goroutine leaks after shutdown (verified with runtime.NumGoroutine())
-- [ ] No file handle leaks (verified with lsof)
+- Implement a concurrent packet capture system that can simultaneously capture packets from multiple network interfaces using goroutines
+- Aggregate all captured packets into a single PCAP file with proper synchronization
+- Maintain per-interface statistics (packets, bytes, drops) using atomic operations
+- Support graceful shutdown with context-based cancellation
+- Use Go's concurrency primitives (channels, sync.WaitGroup) and ensure thread-safe access to shared resources
 
 ## 执行步骤 (Implementation Steps)
 
@@ -682,6 +672,32 @@ graph TD
 - 添加实时packet过滤，减少不必要的处理
 - 实现adaptive buffer sizing based on load
 - 支持packet去重功能
+
+## 验收标准 (Acceptance Criteria)
+
+### 功能性 (Functional)
+
+- [ ] Can capture packets on multiple interfaces simultaneously (tested with 3+ interfaces)
+- [ ] All interfaces' packets written to single PCAP file with correct format
+- [ ] Per-interface statistics accurately tracked (packets, bytes, drops)
+- [ ] Graceful shutdown on context cancellation or SIGINT/SIGTERM
+- [ ] Interface filtering works correctly (include/exclude patterns)
+- [ ] Unit test coverage > 80%
+
+### 性能 (Performance)
+
+- [ ] Can handle 10,000+ packets/second across all interfaces
+- [ ] Packet processing latency < 10ms per packet
+- [ ] Memory usage < 200MB for 1M packets
+- [ ] No packet drops under normal load (< 5000 pps per interface)
+
+### 异常场景 (Exception Handling)
+
+- [ ] Handles interface disconnection gracefully (logs error, continues with other interfaces)
+- [ ] Recovers from temporary write failures (retries with backoff)
+- [ ] Validates interface names and returns clear error for invalid interfaces
+- [ ] No goroutine leaks after shutdown (verified with runtime.NumGoroutine())
+- [ ] No file handle leaks (verified with lsof)
 
 ## 参考文档 (References)
 
